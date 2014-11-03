@@ -1,0 +1,73 @@
+body {
+    font-size: 100%;
+}
+
+.ground {
+    background-color: hsla(0,0%,0%,.1);
+    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
+                      -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
+    background-size: 3em 3em;
+    box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);
+    height: 9em;
+    left: 50%;
+    margin: -7.5em;
+    position: absolute;
+    top: 50%;
+    width: 9em;
+    -webkit-transform: rotateX(45deg) rotateZ(45deg);
+    -webkit-transform-style: preserve-3d;
+}
+
+/* Top */
+.bus {
+    background: url(../imgs/bus-top.png) 0px 6px no-repeat;
+    background-size: 133px 44px;
+    position: relative;
+    content: '';
+    float: left;
+    height: 3em;
+    width: 9em;
+    -webkit-transform: rotateZ(-90deg) translateX(-3em) translateY(-3em) translateZ(6em);
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: .25s;
+}
+
+/* Left */
+.bus:after {
+    background-color: #e55;
+    background: url(../imgs/bus-left.png) 0 0 no-repeat;
+    background-size: 48px 95px;
+    content: '';
+    float: left;
+    height: 6em;
+    position: absolute;
+    width: 3em;
+    -webkit-transform: rotateX(-90deg) rotateY(-90deg) translateX(-3em) translateY(6em) translateZ(3em);;
+    -webkit-transform-origin: 100% 100%;
+}
+
+/* Right */
+.bus:before {
+    background: url(../imgs/bus-right.png) -1px 0 no-repeat;
+    background-size: 144px 96px;
+    content: '';
+    float: left;
+    height: 6em;
+    position: absolute;
+    width: 9em;
+    -webkit-transform: rotateX(-90deg) translateZ(3em);
+    -webkit-transform-origin: 0 0;
+}
+
+.bus .shadow {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 25px;
+    position: absolute;
+    content: '';
+    float: left;
+    height: 5em;
+    width: 11em;
+    -webkit-transform: translateX(-1.5em) translateY(-1.7em) translateZ(-6em);
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: .25s;
+}
