@@ -18,56 +18,59 @@ body {
     -webkit-transform-style: preserve-3d;
 }
 
+.bus,
+.bus:before,
+.bus:after,
+.bus .shadow {
+    -webkit-transition: .25s;
+}
+
 /* Top */
 .bus {
     background: url(../imgs/bus-top.png) 0px 6px no-repeat;
-    background-size: 133px 44px;
+    background-size: 89px 27px;
     position: relative;
     content: '';
     float: left;
-    height: 3em;
-    width: 9em;
-    -webkit-transform: rotateZ(-90deg) translateX(-3em) translateY(-3em) translateZ(6em);
+    height: 2em;
+    width: 6em;
+    -webkit-transform: rotateZ(-90deg) translateX(-3em) translateY(-3em) translateZ(4em);
     -webkit-transform-style: preserve-3d;
-    -webkit-transition: .25s;
 }
 
 /* Left */
 .bus:after {
-    background-color: #e55;
-    background: url(../imgs/bus-left.png) 0 0 no-repeat;
-    background-size: 48px 95px;
+    background: url(../imgs/bus-left.png) 3px 0 no-repeat;
+    background-size: 32px 65px;
     content: '';
     float: left;
-    height: 6em;
+    height: 4em;
     position: absolute;
-    width: 3em;
-    -webkit-transform: rotateX(-90deg) rotateY(-90deg) translateX(-3em) translateY(6em) translateZ(3em);;
+    width: 2em;
+    -webkit-transform: rotateX(-90deg) rotateY(-90deg) translateX(-2em) translateY(4em) translateZ(2em);
     -webkit-transform-origin: 100% 100%;
 }
 
 /* Right */
 .bus:before {
     background: url(../imgs/bus-right.png) -1px 0 no-repeat;
-    background-size: 144px 96px;
+    background-size: 96px 65px;
     content: '';
     float: left;
-    height: 6em;
+    height: 4em;
     position: absolute;
-    width: 9em;
-    -webkit-transform: rotateX(-90deg) translateZ(3em);
+    width: 6em;
+    -webkit-transform: rotateX(-90deg) translateZ(2em);
     -webkit-transform-origin: 0 0;
 }
 
 .bus .shadow {
     background-color: rgba(0, 0, 0, 0.2);
-    border-radius: 25px;
+    border-radius: 14px;
     position: absolute;
     content: '';
     float: left;
-    height: 5em;
-    width: 11em;
-    -webkit-transform: translateX(-1.5em) translateY(-1.7em) translateZ(-6em);
-    -webkit-transform-style: preserve-3d;
-    -webkit-transition: .25s;
+    height: 3em;
+    width: 7em;
+    -webkit-transform: translateX(-0.8em) translateY(-0.8em) translateZ(-4em);
 }
