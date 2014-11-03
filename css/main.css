@@ -8,14 +8,35 @@ body {
                       -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
     background-size: 3em 3em;
     box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);
+    width: 9em;
     height: 9em;
     left: 50%;
     margin: -7.5em;
     position: absolute;
     top: 50%;
-    width: 9em;
     -webkit-transform: rotateX(45deg) rotateZ(45deg);
     -webkit-transform-style: preserve-3d;
+}
+
+.tile.blue {
+    background-color: #0098a6;
+    width: .7em;
+    height: 1em;
+    position: absolute;
+}
+
+.tile.blue.right {
+    border-left: 2px solid white;
+    border-right: 2px solid white;
+}
+
+.tile.blue.left {
+    border-top: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+.tile.blue.corner {
+    border-radius: 5px;
 }
 
 .bus,
