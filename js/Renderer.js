@@ -2,8 +2,6 @@ function Renderer(){
 
 	this.busHeight = "64";
 	this.body = document.body;
-	this.bus = document.createElement("div");
-	this.shadow = document.createElement("div");
 	this.ground = document.createElement("div");
 }
 
@@ -11,7 +9,9 @@ Renderer.prototype = {
 	
 	render: function(){
 		this.renderGround();
-		this.renderBus();
+		for(var i = 0; i < 1; i++){
+			this.renderBus(0, 0);	
+		}
 	},
 
 	renderGround: function(){
@@ -19,14 +19,20 @@ Renderer.prototype = {
 		this.body.appendChild(this.ground);
 	},
 
-	renderBus: function(){
-		this.bus.className = "bus";
-		this.shadow.className = "shadow";
+	renderBus: function(x, y){
 
-		setTop(this.bus, "48", "64", this.busHeight);
-		setBottom(this.shadow, "12.8", "12.8", this.busHeight);
+		var bus = document.createElement("div");
+		bus.className = "bus";
+
+		var shadow = document.createElement("div");
+		shadow.className = "shadow";
+
+		setTop(bus, x, y, this.busHeight);
+		setBottom(shadow, "12.8", "12.8", this.busHeight);
+
+		rotateLeft(bus);
 		
-		this.bus.appendChild(this.shadow);
-		this.ground.appendChild(this.bus);
+		bus.appendChild(shadow);
+		this.ground.appendChild(bus);
 	}
 };

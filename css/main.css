@@ -6,12 +6,12 @@ body {
     background-color: hsla(0,0%,0%,.1);
     background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
                       -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
-    background-size: 3em 3em;
+    background-size: 48px 48px;
     box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);
-    width: 9em;
-    height: 9em;
+    width: 144px;
+    height: 144px;
     left: 50%;
-    margin: -7.5em;
+    margin: -120px;
     position: absolute;
     top: 50%;
     -webkit-transform: rotateX(45deg) rotateZ(45deg);
@@ -53,8 +53,8 @@ body {
     position: relative;
     content: '';
     float: left;
-    height: 2em;
-    width: 6em;
+    height: 32px;
+    width: 96px;
     -webkit-transform-style: preserve-3d;
             transform-style: preserve-3d;
 }
@@ -65,9 +65,9 @@ body {
     background-size: 32px 65px;
     content: '';
     float: left;
-    height: 4em;
+    height: 64px;
     position: absolute;
-    width: 2em;
+    width: 32px;
     -webkit-transform: rotateX(-90deg) rotateY(-90deg) translateX(-2em) translateY(4em) translateZ(2em);
     -webkit-transform-origin: 100% 100%;
 }
@@ -78,9 +78,9 @@ body {
     background-size: 96px 65px;
     content: '';
     float: left;
-    height: 4em;
+    height: 64px;
     position: absolute;
-    width: 6em;
+    width: 96px;
     -webkit-transform: rotateX(-90deg) translateZ(2em);
     -webkit-transform-origin: 0 0;
 }
@@ -91,6 +91,6 @@ body {
     position: absolute;
     content: '';
     float: left;
-    height: 3em;
-    width: 7em;
+    height: 48px;
+    width: 112px;
 }
