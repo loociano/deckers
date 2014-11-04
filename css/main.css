@@ -50,7 +50,7 @@ body {
 .bus {
     background: url(../imgs/bus-top.png) 0px 6px no-repeat;
     background-size: 89px 27px;
-    position: relative;
+    position: absolute;
     content: '';
     float: left;
     height: 32px;

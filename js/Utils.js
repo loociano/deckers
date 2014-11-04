@@ -113,3 +113,43 @@ function rotateLeft(elt){
 	}
 	set3dPositionArray(elt, array);
 }
+
+function rotateRight(elt){
+
+	var array = get3dPosition(elt);
+	if (array[0] == "1"){
+		// Bus is in 0 deg. Rotate to 270 deg
+		array[0] = "0";
+		array[1] = "1";
+		array[4] = "-1";
+		array[5] = "0";
+	} else {
+		if (array[0] == "-1"){
+			// Bus is in 180. Rotate to 90 deg.
+			array[0] = "0";
+			array[1] = "-1";
+			array[4] = "1";
+			array[5] = "0";
+		} else {
+			if (array[1] == "-1"){
+				// Bus is in 90. Rotate to 360 deg.
+				array[0] = "1";
+				array[1] = "0";
+				array[4] = "0";
+				array[5] = "1";
+			} else {
+				if (array[1] == "1"){
+					// Bus is in 270. Rotate to 180 deg.
+					array[0] = "-1";
+					array[1] = "0";
+					array[4] = "0";
+					array[5] = "-1";
+				} else {
+					console.error("Wrong bus position");
+					debugger
+				}
+			}
+		}
+	}
+	set3dPositionArray(elt, array);
+}
