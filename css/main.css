@@ -48,8 +48,8 @@ body {
 
 /* Top */
 .bus {
-    background: url(../imgs/bus-top.png) 0px 6px no-repeat;
-    background-size: 89px 27px;
+    background: url(../imgs/bus-texture.png) -67px -55px no-repeat;
+    background-size: 232px 145px;
     position: absolute;
     content: '';
     float: left;
@@ -61,8 +61,8 @@ body {
 
 /* Left */
 .bus:after {
-    background: url(../imgs/bus-left.png) 3px 0 no-repeat;
-    background-size: 32px 65px;
+    background: url(../imgs/bus-texture.png) -34px -101px no-repeat;
+    background-size: 232px 165px;
     content: '';
     float: left;
     height: 64px;
@@ -74,8 +74,8 @@ body {
 
 /* Right */
 .bus:before {
-    background: url(../imgs/bus-right.png) -1px 0 no-repeat;
-    background-size: 96px 65px;
+    background: url(../imgs/bus-texture.png) -67px -89px no-repeat;
+    background-size: 232px 154px;
     content: '';
     float: left;
     height: 64px;
@@ -93,4 +93,31 @@ body {
     float: left;
     height: 48px;
     width: 112px;
+    -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
+}
+
+/* Left */
+.bus .shadow:after {
+    background: url(../imgs/bus-texture.png) -167px -107px no-repeat;
+    background-size: 232px 173px;
+    content: '';
+    float: left;
+    height: 64px;
+    position: absolute;
+    width: 32px;
+    -webkit-transform: rotateX(-90deg) rotateY(-90deg) translateX(-1.2em) translateZ(-4.8em);
+    -webkit-transform-origin: 100% 100%;
+}
+
+/* Right */
+.bus .shadow:before {
+    background: url(../imgs/bus-texture.png) -69px -5px no-repeat;
+    background-size: 232px 189px;
+    content: '';
+    float: left;
+    height: 64px;
+    position: absolute;
+    width: 96px;
+    -webkit-transform: rotateX(-90deg) translateY(-2em) translateZ(-1.2em) translateX(0.8em);
 }

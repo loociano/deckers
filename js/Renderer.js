@@ -12,8 +12,8 @@ Renderer.prototype = {
 	
 	render: function(){
 		this.renderGround();
-		for(var i = 0; i < 10; i++){
-			this.renderBus(i*this.busWidth, 0);	
+		for(var i = 0; i < 5; i++){
+			this.renderBus(i*this.busHeight*1.1, 0);	
 		}
 	},
 
@@ -24,18 +24,29 @@ Renderer.prototype = {
 
 	renderBus: function(x, y){
 
+		// Create bus
 		var bus = document.createElement("div");
 		bus.className = "bus";
 
+		// Add shadow
 		var shadow = document.createElement("div");
 		shadow.className = "shadow";
-
-		setTop(bus, x, y, this.busHeight);
-		setBottom(shadow, "12.8", "12.8", this.busHigh);
-
-		rotateLeft(bus);
-
 		bus.appendChild(shadow);
+
+		// Position bus
+		var die = getRandomInt(0,3);
+		while(die > 0){
+			rotateLeft(bus);
+			die--;
+		}
+
+		this.setBusPosition(bus, x, y);
+
 		this.ground.appendChild(bus);
+	},
+
+	setBusPosition: function(bus, x, y){
+		setTop(bus, x, y, this.busHigh);
+		setBottom(bus.children[0], "12.8", "12.8", this.busHigh);
 	}
 };
