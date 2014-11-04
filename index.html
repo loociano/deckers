@@ -1,26 +1,12 @@
 <html>
 <head>
+	<script src="js/Utils.js"></script>
+	<script src="js/Renderer.js"></script>
 	<link href="css/main.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<div class="ground">
-	<div class="tile blue"></div>
-	<div class="tile blue right" style="transform: translateY(-1em);"></div>
-	<div class="tile blue right" style="transform: translateY(0em);"></div>
-	<div class="tile blue right" style="transform: translateY(1em);"></div>
-	<div class="tile blue right" style="transform: translateY(2em);"></div>
-	<div class="tile blue right" style="transform: translateY(3em);"></div>
-	<div class="tile blue right" style="transform: translateY(4em);"></div>
-	<div class="tile blue right" style="transform: translateY(5em);"></div>
-	<div class="tile blue right" style="transform: translateY(6em);"></div>
-	<div class="tile blue right" style="transform: translateY(7em);"></div>
-	<div class="tile blue right" style="transform: translateY(8em);"></div>
-	<div class="tile blue right" style="transform: translateY(9em);"></div>
-	<div class="tile blue corner" style="transform: translateY(10em);"></div>
-	<div class="tile blue left" style="transform: translateX(1em) translateY(10em);"></div>
-    <div class="bus">
-    	<div class="shadow"></div>
-    </div>
-</div>
 </body>
+<script>
+	new Renderer().render();
+</script>
 </html>

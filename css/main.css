@@ -55,8 +55,8 @@ body {
     float: left;
     height: 2em;
     width: 6em;
-    -webkit-transform: rotateZ(-90deg) translateX(-3em) translateY(-3em) translateZ(4em);
     -webkit-transform-style: preserve-3d;
+            transform-style: preserve-3d;
 }
 
 /* Left */
@@ -93,5 +93,4 @@ body {
     float: left;
     height: 3em;
     width: 7em;
-    -webkit-transform: translateX(-0.8em) translateY(-0.8em) translateZ(-4em);
 }
