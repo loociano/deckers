@@ -27,17 +27,53 @@ function arrayToMatrix3d(array) {
 
 /** Returns the CSS transform horizontal position given an HTML Element */
 function get3dPositionX(elt) {
-	return parseFloat(matrixToArray(elt.style.transform)[12]);
+	return parseFloat(matrix3dToArray(elt.style.transform)[12]);
 }
 
 function get3dPositionY(elt){
-	return parseFloat(matrixToArray(elt.style.transform)[13]);
+	return parseFloat(matrix3dToArray(elt.style.transform)[13]);
 }
 
 /** Returns the CSS transform vertical position given an HTML Element */
 function get3dPositionZ(elt){
-	return parseFloat(matrixToArray(elt.style.transform)[14]);
+	return parseFloat(matrix3dToArray(elt.style.transform)[14]);
 }
+
+/** Sets the CSS transform horizontal position for an HTML Element */
+function set3dPositionX(elt, x) {
+	var array = matrix3dToArray(elt.style.transform);
+	array[12] = x;
+	elt.style.transform = arrayToMatrix3d(array);
+}
+
+/** Sets the CSS transform vertical position for an HTML Element */
+function set3dPositionY(elt, y) {
+	var array = matrix3dToArray(elt.style.transform);
+	array[13] = y;
+	elt.style.transform = arrayToMatrix3d(array);
+}
+
+/** Sets the CSS transform vertical position for an HTML Element */
+function addOffsetX(elt, offset) {
+
+	var array = matrix3dToArray(elt.style.transform);
+	var x = parseFloat(array[12]);
+	x += offset;
+
+	array[12] = x.toString();
+	elt.style.transform = arrayToMatrix3d(array);
+};
+
+/** Sets the CSS transform vertical position for an HTML Element */
+function addOffsetY(elt, offset) {
+
+	var array = matrix3dToArray(elt.style.transform);
+	var y = parseFloat(array[13]);
+	y += offset;
+
+	array[13] = y.toString();
+	elt.style.transform = arrayToMatrix3d(array);
+};
 
 /** Sets the CSS transform 3d position for an HTML Element */
 function set3dPosition(elt, x, y, z) {
@@ -80,6 +116,25 @@ function rotateTop(elt){
 /** Sets an element to the top and positions it */
 function setBottom(elt, x, y, z){
 	set3dPosition(elt, -x, -y, -z);
+}
+
+function getRotation(elt){
+	var array = get3dPosition(elt);
+	if (array[0] == "1"){
+		return 0;
+	} else {
+		if (array[0] == "-1"){
+			return 180;
+		} else {
+			if (array[1] == "-1"){
+				return 90;
+			} else {
+				if (array[1] == "1"){
+					return 270;
+				}
+			}
+		}
+	}
 }
 
 function rotateLeft(elt){
