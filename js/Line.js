@@ -7,7 +7,7 @@ function Line(){
 Line.prototype = {
 	
 	generate: function(){
-		this.line.push({x: 0, y: 0}, {x: 3, y: 3}, {x: 3, y: 4}, {x: 9, y: 4});
+		this.line.push({x: 1, y: 3}, {x: 1, y: 2});
 		return this.line;
 	},
 

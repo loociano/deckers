@@ -7,7 +7,8 @@ function Renderer(ground){
 	this.busHeight = "96";
 	this.step = 10;
 
-	this.size = this.busWidth;
+	this.size = 32;
+	this.hsize = 16;
 
 	this.body = document.body;
 	this.groundElt = document.createElement("div");
@@ -19,7 +20,7 @@ Renderer.prototype = {
 	
 	render: function(){
 		this.renderGround();
-		this.renderLines();
+		this.renderLines2();
 		//this.renderBus();
 	},
 
@@ -38,6 +39,60 @@ Renderer.prototype = {
 		}
 	},
 
+	renderLines2: function(){
+
+		var line = new Line();
+		var buffer = null;
+
+		for (var i = 0; i < line.getLength(); i++){
+			
+			if (buffer != null){
+
+				var pos = line.getPos(i);
+
+				var dx = (pos.x - buffer.x);
+				var dy = (pos.y - buffer.y);
+
+				var length = Math.max(dx, dy) * this.size;
+				
+				if (dx == dy){
+					length = (dx + 0.707)*0.707*this.size;
+				}
+				if (dx > dy){
+					length += this.size;
+					if (dy > 0){
+						return;
+					}
+				}
+				if (dy > dx){
+					length += this.size;
+					if (dx > 0){
+						return;
+					}
+				}
+					
+				var lineElt = document.createElement("div");
+				lineElt.className = "line " + line.getColour();
+				lineElt.style.width = length.toString() + "px";
+				lineElt.style.height = this.size + "px";
+				this.setPosition(lineElt, buffer.y, buffer.x);
+
+				if (dx == dy){
+					lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
+					this.rotate45(lineElt);
+				}
+
+				if (dx > dy){
+					lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
+					this.rotate90(lineElt);
+				}
+				this.groundElt.appendChild(lineElt);
+			}
+			// Update buffer
+			buffer = line.getPos(i);
+		}
+	},
+
 	renderLines: function(){
 		
 		var pos = null;
@@ -49,19 +104,42 @@ Renderer.prototype = {
 				if (!square.isEmpty()){
 					
 					if (pos != null){
+
 						var dx = (x - pos.x);
 						var dy = (y - pos.y);
 
-						var length = (Math.max(dx, dy) + 1) * this.size;
-
+						var length = Math.max(dx, dy) * this.size;
+						
+						if (dx == dy){
+							length = (dx + 0.707)*0.707*this.size;
+						}
+						if (dx > dy){
+							length += this.size;
+							if (dy > 0){
+								return;
+							}
+						}
+						if (dy > dx){
+							length += this.size;
+							if (dx > 0){
+								return;
+							}
+						}
+							
 						var line = document.createElement("div");
 						line.className = "line " + square.getTopLine();
 						line.style.width = length.toString() + "px";
 						line.style.height = this.size + "px";
-						this.setPosition(line, pos.x, pos.y);
+						this.setPosition(line, pos.y, pos.x);
 
 						if (dx == dy){
-							//this.rotate45(line);
+							line.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
+							this.rotate45(line);
+						}
+
+						if (dx > dy){
+							line.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
+							this.rotate90(line);
 						}
 						this.groundElt.appendChild(line);
 					}
@@ -78,7 +156,7 @@ Renderer.prototype = {
 
 	/** Sets the position using CSS transform */
 	setPosition: function(elt, x, y){
-		elt.style.transform = "matrix(1, 0, 0, 1, " + x * this.size + ", " + y * this.size + ")";
+		elt.style.transform = "matrix(1, 0, 0, 1, " + y * this.size + ", " + x * this.size + ")";
 	},
 
 	rotate45: function(elt){
@@ -87,8 +165,15 @@ Renderer.prototype = {
 		array[1] = "0.707";
 		array[2] = "-0.707";
 		array[3] = "0.707";
-		array[4] = array[4] - this.size*0.5; 
-		array[5] = array[5] + this.size; 
+		setPositionArray(elt, array);
+	},
+
+	rotate90: function(elt){
+		var array = getPosition(elt);
+		array[0] = "0";
+		array[1] = "1";
+		array[2] = "-1";
+		array[3] = "0";
 		setPositionArray(elt, array);
 	},
 

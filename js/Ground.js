@@ -1,7 +1,7 @@
 function Ground(){
 
-	this.width = 10;
-	this.height = 20;
+	this.width = 20;
+	this.height = 10;
 	this.ground = [];
 
 	this.initGround();
@@ -20,9 +20,9 @@ Ground.prototype = {
 	
 	initGround: function(){
 
-		for (var h = 0; h < this.height; h++){
+		for (var y = 0; y < this.height; y++){
 			var line = [];
-			for (var w = 0; w < this.width; w++){
+			for (var x = 0; x < this.width; x++){
 				line.push(new Square());
 			}
 			this.ground.push(line);
@@ -33,7 +33,7 @@ Ground.prototype = {
 		var line = new Line();
 		for (var i = 0; i < line.getLength(); i++){
 			var pos = line.getPos(i);
-			var square = this.ground[pos.x][pos.y];
+			var square = this.ground[pos.y][pos.x];
 			square.addLine(line.getColour());
 		}
 	},
