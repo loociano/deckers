@@ -3,40 +3,43 @@ body {
 }
 
 .ground {
-    background-color: hsla(0,0%,0%,.1);
+    /*background-color: hsla(0,0%,0%,.1);
     background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
                       -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
-    background-size: 48px 48px;
-    box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);
-    width: 287px;
-    height: 240px;
+    background-size: 32px 32px;
+    box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);*/
+    width: 320px;
+    height: 640px;
     left: 50%;
-    margin: -120px;
+    margin-top: -320px; /* same as width */
+    margin-left: -160px; /* half the width */
     position: absolute;
     top: 50%;
     -webkit-transform: rotateX(45deg) rotateZ(45deg);
     -webkit-transform-style: preserve-3d;
 }
 
-.tile.blue {
-    background-color: #0098a6;
-    width: .7em;
-    height: 1em;
+.square {
     position: absolute;
+    margin: 0;
+    padding: 0;
+    background-color: hsla(0,0%,0%,.1);
+    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
+                      -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
+    background-size: 32px 32px;
+    width: 32px;
+    height: 32px;
 }
 
-.tile.blue.right {
-    border-left: 2px solid white;
-    border-right: 2px solid white;
+.line {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    border-radius: 32px; /* Line segment size */
 }
 
-.tile.blue.left {
-    border-top: 2px solid black;
-    border-bottom: 2px solid black;
-}
-
-.tile.blue.corner {
-    border-radius: 5px;
+.line.blue {
+    background-color: blue;
 }
 
 .bus,

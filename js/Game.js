@@ -1,12 +1,19 @@
 function Game(){
 	this.id = null;
+
 	this.tickMillis = 50;
-	this.renderer = new Renderer();
-	this.steps = 20;
 	this.stepLength = 10;
+	this.resetStep();
+
+	this.renderer = new Renderer(new Ground());	
 }
 
 Game.prototype = {
+	
+	resetStep: function(){
+		this.steps = 16;
+	},
+
 	start: function(){
 		this.renderer.render();
 
@@ -22,7 +29,7 @@ Game.prototype = {
 			this.steps--;
 		} else {
 			this.renderer.turnRight();
-			this.steps = 20;
+			this.resetStep();
 		}
 	}
 }
