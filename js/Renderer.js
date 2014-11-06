@@ -20,7 +20,7 @@ Renderer.prototype = {
 	
 	render: function(){
 		this.renderGround();
-		this.renderLines2();
+		this.renderLines();
 		//this.renderBus();
 	},
 
@@ -39,7 +39,7 @@ Renderer.prototype = {
 		}
 	},
 
-	renderLines2: function(){
+	renderLines: function(){
 
 		var line = new Line();
 		var buffer = null;
@@ -50,103 +50,35 @@ Renderer.prototype = {
 
 				var pos = line.getPos(i);
 
-				var dx = (pos.x - buffer.x);
-				var dy = (pos.y - buffer.y);
+				var dx = (pos.x - buffer.x) + 1;
+				var dy = (pos.y - buffer.y) + 1;
 
 				var length = Math.max(dx, dy) * this.size;
 				
+				// Adjust length for 45deg
 				if (dx == dy){
-					length = (dx + 0.707)*0.707*this.size;
-				}
-				if (dx > dy){
-					length += this.size;
-					if (dy > 0){
-						return;
-					}
-				}
-				if (dy > dx){
-					length += this.size;
-					if (dx > 0){
-						return;
-					}
+					length = (length * Math.sqrt(2)) - this.hsize;
 				}
 					
 				var lineElt = document.createElement("div");
 				lineElt.className = "line " + line.getColour();
 				lineElt.style.width = length.toString() + "px";
 				lineElt.style.height = this.size + "px";
-				this.setPosition(lineElt, buffer.y, buffer.x);
+				this.setPosition(lineElt, buffer.x, buffer.y);
 
 				if (dx == dy){
 					lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
 					this.rotate45(lineElt);
-				}
-
-				if (dx > dy){
-					lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
-					this.rotate90(lineElt);
+				} else {
+					if (dx > dy){
+						lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
+						this.rotate90(lineElt);
+					}	
 				}
 				this.groundElt.appendChild(lineElt);
 			}
 			// Update buffer
 			buffer = line.getPos(i);
-		}
-	},
-
-	renderLines: function(){
-		
-		var pos = null;
-
-		for (var y = 0; y < this.ground.getHeight(); y++){
-			for (var x = 0; x < this.ground.getWidth(); x++){
-				
-				var square = this.ground.getSquare(x, y);
-				if (!square.isEmpty()){
-					
-					if (pos != null){
-
-						var dx = (x - pos.x);
-						var dy = (y - pos.y);
-
-						var length = Math.max(dx, dy) * this.size;
-						
-						if (dx == dy){
-							length = (dx + 0.707)*0.707*this.size;
-						}
-						if (dx > dy){
-							length += this.size;
-							if (dy > 0){
-								return;
-							}
-						}
-						if (dy > dx){
-							length += this.size;
-							if (dx > 0){
-								return;
-							}
-						}
-							
-						var line = document.createElement("div");
-						line.className = "line " + square.getTopLine();
-						line.style.width = length.toString() + "px";
-						line.style.height = this.size + "px";
-						this.setPosition(line, pos.y, pos.x);
-
-						if (dx == dy){
-							line.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
-							this.rotate45(line);
-						}
-
-						if (dx > dy){
-							line.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
-							this.rotate90(line);
-						}
-						this.groundElt.appendChild(line);
-					}
-					// Update buffer
-					pos = {x: x, y: y};
-				}				
-			}
 		}
 	},
 
