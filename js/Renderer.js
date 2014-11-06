@@ -50,30 +50,40 @@ Renderer.prototype = {
 
 				var pos = line.getPos(i);
 
-				var dx = (pos.x - buffer.x) + 1;
-				var dy = (pos.y - buffer.y) + 1;
+				var dx = pos.x - buffer.x;
+				var dy = pos.y - buffer.y;
 
-				var length = Math.max(dx, dy) * this.size;
+				// Skip node repetition
+				if (dx == 0 && dy == 0) continue;
+
+				var length = (Math.max(Math.abs(dx), Math.abs(dy)) + 1) * this.size;
 				
 				// Adjust length for 45deg
 				if (dx == dy){
-					length = (length * Math.sqrt(2)) - this.hsize;
+					length = (length * sqrt2) - this.hsize;
 				}
 					
 				var lineElt = document.createElement("div");
 				lineElt.className = "line " + line.getColour();
 				lineElt.style.width = length.toString() + "px";
 				lineElt.style.height = this.size + "px";
+				lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
 				this.setPosition(lineElt, buffer.x, buffer.y);
 
 				if (dx == dy){
-					lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
-					this.rotate45(lineElt);
+					rotate45(lineElt);
 				} else {
-					if (dx > dy){
-						lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
-						this.rotate90(lineElt);
-					}	
+					if (dx < 0){
+						rotate90l(lineElt);
+					} else {
+						if (dy < 0){
+							rotate180(lineElt);
+						} else {
+							if (dx > dy){
+								rotate90r(lineElt);
+							}
+						}
+					}
 				}
 				this.groundElt.appendChild(lineElt);
 			}
@@ -89,24 +99,6 @@ Renderer.prototype = {
 	/** Sets the position using CSS transform */
 	setPosition: function(elt, x, y){
 		elt.style.transform = "matrix(1, 0, 0, 1, " + y * this.size + ", " + x * this.size + ")";
-	},
-
-	rotate45: function(elt){
-		var array = getPosition(elt);
-		array[0] = "0.707";
-		array[1] = "0.707";
-		array[2] = "-0.707";
-		array[3] = "0.707";
-		setPositionArray(elt, array);
-	},
-
-	rotate90: function(elt){
-		var array = getPosition(elt);
-		array[0] = "0";
-		array[1] = "1";
-		array[2] = "-1";
-		array[3] = "0";
-		setPositionArray(elt, array);
 	},
 
 	renderBus: function(){

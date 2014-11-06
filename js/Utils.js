@@ -1,4 +1,10 @@
 /**
+ * Constants
+ */
+var sqrt2 = Math.sqrt(2);
+var isqrt2 = 1/sqrt2;
+
+/**
  * Returns a random integer between min (inclusive) and max (inclusive)
  * Using Math.round() will give you a non-uniform distribution!
  */
@@ -247,4 +253,40 @@ function rotateRight(elt){
 		}
 		set3dPositionArray(elt, array);
 	}
+}
+
+function rotate45(elt){
+	var array = getPosition(elt);
+	array[0] = isqrt2;
+	array[1] = isqrt2;
+	array[2] = -isqrt2;
+	array[3] = isqrt2;
+	setPositionArray(elt, array);
+}
+
+function rotate90r(elt){
+	var array = getPosition(elt);
+	array[0] = 0;
+	array[1] = 1;
+	array[2] = -1;
+	array[3] = 0;
+	setPositionArray(elt, array);
+}
+
+function rotate90l(elt){
+	var array = getPosition(elt);
+	array[0] = 0;
+	array[1] = -1;
+	array[2] = 1;
+	array[3] = 0;
+	setPositionArray(elt, array);
+}
+
+function rotate180(elt){
+	var array = getPosition(elt);
+	array[0] = -1;
+	array[1] = 0;
+	array[2] = 0;
+	array[3] = -1;
+	setPositionArray(elt, array);
 }
