@@ -14,14 +14,52 @@ function Renderer(ground){
 	this.groundElt = document.createElement("div");
 
 	this.bus = null;
+	this.lines = [];
 }
 
 Renderer.prototype = {
-	
+
 	render: function(){
+		this.generateLines();
 		this.renderGround();
 		this.renderLines();
 		//this.renderBus();
+	},
+
+	generateLines: function(){
+
+		var nodes = [
+			{x: 0, y: 0}, 
+			{x: 5, y: 0}, 
+			{x: 5, y: 5}, 
+			{x: 0, y: 5}, 
+			{x: 0, y: 0}];
+		
+		var line = new Line("blue");
+		line.setNodes(nodes);
+		this.lines.push(line);
+
+		var nodes = [
+			{x: 6, y: 0}, 
+			{x: 11, y: 0}, 
+			{x: 11, y: 5}, 
+			{x: 6, y: 5}, 
+			{x: 6, y: 0}];
+		
+		var line = new Line("green");
+		line.setNodes(nodes);
+		this.lines.push(line);
+
+		var nodes = [
+			{x: 3, y: 3}, 
+			{x: 3, y: 9}, 
+			{x: 15, y: 9},
+			{x: 9, y: 3},
+			{x: 3, y: 3}];
+		
+		var line = new Line("red");
+		line.setNodes(nodes);
+		this.lines.push(line);
 	},
 
 	renderGround: function(){
@@ -40,8 +78,13 @@ Renderer.prototype = {
 	},
 
 	renderLines: function(){
+		for(var l = 0; l < this.lines.length; l++){
+			this.renderLine(this.lines[l]);
+		}
+	},
 
-		var line = new Line();
+	renderLine: function(line){
+
 		var buffer = null;
 
 		for (var i = 0; i < line.getLength(); i++){
@@ -71,7 +114,11 @@ Renderer.prototype = {
 				this.setPosition(lineElt, buffer.x, buffer.y);
 
 				if (dx == dy){
-					rotate45(lineElt);
+					if (dx > 0){
+						rotate45r(lineElt);	
+					} else {
+						rotate45l(lineElt);
+					}
 				} else {
 					if (dx < 0){
 						rotate90l(lineElt);

@@ -3,11 +3,6 @@ body {
 }
 
 .ground {
-    /*background-color: hsla(0,0%,0%,.1);
-    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
-                      -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
-    background-size: 32px 32px;
-    box-shadow: 0 0 0 .1em hsla(0,0%,0%,.2);*/
     width: 320px;
     height: 640px;
     left: 50%;
@@ -40,6 +35,14 @@ body {
 
 .line.blue {
     background-color: blue;
+}
+
+.line.green {
+    background-color: green;
+}
+
+.line.red {
+    background-color: red;
 }
 
 .bus,

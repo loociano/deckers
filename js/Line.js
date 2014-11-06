@@ -1,14 +1,16 @@
-function Line(){
-	this.colour = "blue";
-	this.line = [];
-	this.generate();
+function Line(colour){
+	this.colour = colour;
+
+	// List of nodes, node example: {x: 0, y: 3}
+	this.nodes = [];
 }
 
 Line.prototype = {
 	
-	generate: function(){
-		this.line.push({x: 0, y: 0}, {x: 5, y: 0}, {x: 5, y: 5}, {x: 0, y: 5}, {x: 0, y: 0});
-		return this.line;
+	setNodes: function(nodeArray){
+		for (var i = 0; i < nodeArray.length; i++){
+			this.nodes.push(nodeArray[i]);	
+		}
 	},
 
 	getColour: function(){
@@ -16,11 +18,11 @@ Line.prototype = {
 	},
 
 	getLength: function(){
-		return this.line.length;
+		return this.nodes.length;
 	},
 
 	getPos: function(index){
-		if (index < this.line.length)
-			return this.line[index];
+		if (index < this.nodes.length)
+			return this.nodes[index];
 	}
 };

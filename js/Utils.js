@@ -255,7 +255,16 @@ function rotateRight(elt){
 	}
 }
 
-function rotate45(elt){
+function rotate45l(elt){
+	var array = getPosition(elt);
+	array[0] = -isqrt2;
+	array[1] = -isqrt2;
+	array[2] = isqrt2;
+	array[3] = -isqrt2;
+	setPositionArray(elt, array);
+}
+
+function rotate45r(elt){
 	var array = getPosition(elt);
 	array[0] = isqrt2;
 	array[1] = isqrt2;
