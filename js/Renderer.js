@@ -14,6 +14,7 @@ function Renderer(ground){
 	this.groundElt = document.createElement("div");
 
 	this.lines = [];
+	this.busElts = [];
 }
 
 Renderer.prototype = {
@@ -169,6 +170,26 @@ Renderer.prototype = {
 		this.setBusPosition(busElt, pos.x, pos.y);
 
 		this.groundElt.appendChild(busElt);
+		this.busElts.push(busElt);
+	},
+
+	updateBuses: function(step){
+		for (var l = 0; l < this.lines.length; l++){
+			var bus = this.lines[l].getBus();
+			this.updateBus(bus, this.busElts[l]);
+		}
+	},
+
+	updateBus: function(bus, busElt){
+		var next = bus.nextPos();
+		var cur = bus.getPos();
+
+		if (cur.x < next.x || cur.y < next.y){
+			this.move(busElt, this.size);
+			bus.setPos(cur.x++, cur.y++);
+		} else {
+			debugger
+		}
 	},
 
 	setBusPosition: function(elt, x, y){
@@ -176,40 +197,40 @@ Renderer.prototype = {
 		setBottom(elt.children[0], "12.8", "12.8", this.busHigh);
 	},
 
-	moveX: function(step){
-		addOffsetX(this.bus, step);
+	moveX: function(elt, step){
+		addOffsetX(elt, step);
 	},
 
-	moveY: function(step){
-		addOffsetY(this.bus, step);
+	moveY: function(elt, step){
+		addOffsetY(elt, step);
 	},
 
-	move: function(step){
-		var r = getRotation(this.bus);
+	move: function(elt, step){
+		var r = getRotation(elt);
 		switch(r){
 			case 0:
-				this.moveX(step);
+				this.moveX(elt, step);
 				break;
 
 			case 90:
-				this.moveY(-step);
+				this.moveY(elt, -step);
 				break;
 
 			case 180:
-				this.moveX(-step);
+				this.moveX(elt, -step);
 				break;
 
 			case 270:
-				this.moveY(step);
+				this.moveY(elt, step);
 				break;
 		}
 	},
 
-	turnRight: function(){
-		rotateRight(this.bus);
+	turnRight: function(elt){
+		rotateRight(elt);
 	},
 
-	turnLeft: function(){
-		rotateLeft(this.bus);
+	turnLeft: function(elt){
+		rotateLeft(elt);
 	}
 };

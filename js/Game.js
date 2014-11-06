@@ -5,7 +5,7 @@ function Game(){
 	this.stepLength = 10;
 	this.resetStep();
 
-	this.renderer = new Renderer(new Ground());	
+	this.renderer = new Renderer();	
 }
 
 Game.prototype = {
@@ -24,12 +24,6 @@ Game.prototype = {
 	},
 
 	update: function(){
-		if (this.steps > 0){
-			this.renderer.move(this.stepLength);
-			this.steps--;
-		} else {
-			this.renderer.turnRight();
-			this.resetStep();
-		}
+		this.renderer.updateBuses();
 	}
 }

@@ -11,5 +11,9 @@ Bus.prototype = {
 
 	nextPos: function(){
 		return this.line.nextNode();
+	},
+
+	setPos: function(pos){
+		this.pos = pos;
 	}
 }

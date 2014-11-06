@@ -43,6 +43,17 @@ Line.prototype = {
 			this.current = index;
 	},
 
+	moveNode: function(){
+		this.current++;
+		if (this.current == this.length()){
+			if (this.isCircular()){
+				this.current = 0;
+			} else {
+				this.current = null;
+			}	
+		}
+	},
+
 	nextNode: function(){
 		var nextIndex = this.current + 1;
 		if (nextIndex < this.length()){
