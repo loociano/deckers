@@ -7,13 +7,12 @@ function Renderer(ground){
 	this.busHeight = "96";
 	this.step = 10;
 
-	this.size = 32;
-	this.hsize = 16;
+	this.size = 16;
+	this.hsize = this.size / 2;
 
 	this.body = document.body;
 	this.groundElt = document.createElement("div");
 
-	this.bus = null;
 	this.lines = [];
 }
 
@@ -22,8 +21,9 @@ Renderer.prototype = {
 	render: function(){
 		this.generateLines();
 		this.renderGround();
+		//this.renderTiles();
 		this.renderLines();
-		//this.renderBus();
+		this.renderBuses();
 	},
 
 	generateLines: function(){
@@ -35,19 +35,17 @@ Renderer.prototype = {
 			{x: 0, y: 5}, 
 			{x: 0, y: 0}];
 		
-		var line = new Line("blue");
-		line.setNodes(nodes);
+		var line = new Line("blue", nodes);
 		this.lines.push(line);
 
 		var nodes = [
-			{x: 6, y: 0}, 
-			{x: 11, y: 0}, 
-			{x: 11, y: 5}, 
-			{x: 6, y: 5}, 
-			{x: 6, y: 0}];
+			{x: 20, y: 0}, 
+			{x: 30, y: 0}, 
+			{x: 30, y: 30}, 
+			{x: 20, y: 30}, 
+			{x: 20, y: 0}];
 		
-		var line = new Line("green");
-		line.setNodes(nodes);
+		var line = new Line("green", nodes);
 		this.lines.push(line);
 
 		var nodes = [
@@ -57,15 +55,16 @@ Renderer.prototype = {
 			{x: 9, y: 3},
 			{x: 3, y: 3}];
 		
-		var line = new Line("red");
-		line.setNodes(nodes);
+		var line = new Line("red", nodes);
 		this.lines.push(line);
 	},
 
 	renderGround: function(){
 		this.groundElt.className = "ground";
 		this.body.appendChild(this.groundElt);
+	},
 
+	renderTiles: function(){
 		for (var y = 0; y < this.ground.getHeight(); y++){
 			for (var x = 0; x < this.ground.getWidth(); x++){
 				var square = this.ground.getSquare(x, y);
@@ -87,7 +86,7 @@ Renderer.prototype = {
 
 		var buffer = null;
 
-		for (var i = 0; i < line.getLength(); i++){
+		for (var i = 0; i < line.length(); i++){
 			
 			if (buffer != null){
 
@@ -148,25 +147,33 @@ Renderer.prototype = {
 		elt.style.transform = "matrix(1, 0, 0, 1, " + y * this.size + ", " + x * this.size + ")";
 	},
 
-	renderBus: function(){
-
-		// Create bus
-		this.bus = document.createElement("div");
-		this.bus.className = "bus";
-
-		// Add shadow
-		var shadow = document.createElement("div");
-		shadow.className = "shadow";
-		this.bus.appendChild(shadow);
-
-		this.setBusPosition(0, 0);
-
-		this.groundElt.appendChild(this.bus);
+	renderBuses: function(){
+		for (var l = 0; l < this.lines.length; l++){
+			var bus = this.lines[l].getBus();
+			this.renderBus(bus);
+		}
 	},
 
-	setBusPosition: function(x, y){
-		setTop(this.bus, x, y, this.busHigh);
-		setBottom(this.bus.children[0], "12.8", "12.8", this.busHigh);
+	renderBus: function(bus){
+
+		// Create bus
+		var busElt = document.createElement("div");
+		busElt.className = "bus";
+
+		// Add shadow
+		var shadowElt = document.createElement("div");
+		shadowElt.className = "shadow";
+		busElt.appendChild(shadowElt);
+
+		var pos = bus.getPos();
+		this.setBusPosition(busElt, pos.x, pos.y);
+
+		this.groundElt.appendChild(busElt);
+	},
+
+	setBusPosition: function(elt, x, y){
+		setTop(elt, y*this.size, x*this.size, this.busHigh);
+		setBottom(elt.children[0], "12.8", "12.8", this.busHigh);
 	},
 
 	moveX: function(step){

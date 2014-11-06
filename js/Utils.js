@@ -131,7 +131,6 @@ function getPosition(elt){
 
 /** Sets an element to the top and positions it */
 function setTop(elt, x, y, z){
-	/*rotateTop(elt);*/
 	set3dPosition(elt, x, y, z);
 }
 

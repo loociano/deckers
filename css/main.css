@@ -1,5 +1,6 @@
 body {
     font-size: 100%;
+    background-image: radial-gradient(#fffefa, #ecebe7);
 }
 
 .ground {
@@ -19,30 +20,34 @@ body {
     margin: 0;
     padding: 0;
     background-color: hsla(0,0%,0%,.1);
-    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%),
-                      -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 2.5%, transparent 2.5%, transparent 97.5%, hsla(0,0%,0%,.1) 97.5%);
-    background-size: 32px 32px;
-    width: 32px;
-    height: 32px;
+    background-image: -webkit-linear-gradient(hsla(0,0%,0%,.1) 5%, transparent 5%, transparent 95%, hsla(0,0%,0%,.1) 95%),
+                      -webkit-linear-gradient(left, hsla(0,0%,0%,.1) 5%, transparent 5%, transparent 95%, hsla(0,0%,0%,.1) 95%);
+    background-size: 16px 16px;
+    width: 16px;
+    height: 16px;
 }
 
 .line {
     position: absolute;
     margin: 0;
     padding: 0;
-    border-radius: 32px; /* Line segment size */
+    border-radius: 16px; /* Line segment size */
 }
 
 .line.blue {
-    background-color: blue;
+    background-color: #0098a5;
+}
+
+.line.blue:hover {
+    background-color: #32c0cd;
 }
 
 .line.green {
-    background-color: green;
+    background-color: #016531;
 }
 
 .line.red {
-    background-color: red;
+    background-color: #e0001a;
 }
 
 .bus,
