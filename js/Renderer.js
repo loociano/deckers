@@ -22,19 +22,14 @@ Renderer.prototype = {
 	render: function(){
 		this.generateLines();
 		this.renderGround();
-		//this.renderTiles();
+		this.renderTiles();
 		this.renderLines();
-		this.renderBuses();
+		//this.renderBuses();
 	},
 
 	generateLines: function(){
 
-		var nodes = [
-			{x: 0, y: 0}, 
-			{x: 5, y: 0}, 
-			{x: 5, y: 5}, 
-			{x: 0, y: 5}, 
-			{x: 0, y: 0}];
+		var nodes = new RandomLineGenerator({x: 10, y: 10});
 		
 		var line = new Line("blue", nodes);
 		this.lines.push(line);
@@ -47,7 +42,7 @@ Renderer.prototype = {
 			{x: 20, y: 0}];
 		
 		var line = new Line("green", nodes);
-		this.lines.push(line);
+		//this.lines.push(line);
 
 		var nodes = [
 			{x: 3, y: 3}, 
@@ -57,7 +52,7 @@ Renderer.prototype = {
 			{x: 3, y: 3}];
 		
 		var line = new Line("red", nodes);
-		this.lines.push(line);
+		//this.lines.push(line);
 	},
 
 	renderGround: function(){
@@ -102,7 +97,7 @@ Renderer.prototype = {
 				var length = (Math.max(Math.abs(dx), Math.abs(dy)) + 1) * this.size;
 				
 				// Adjust length for 45deg
-				if (dx == dy){
+				if (Math.abs(dx) == Math.abs(dy)){
 					length = (length * sqrt2) - this.hsize;
 				}
 					
@@ -113,12 +108,21 @@ Renderer.prototype = {
 				lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
 				this.setPosition(lineElt, buffer.x, buffer.y);
 
-				if (dx == dy){
+				if (Math.abs(dx) == Math.abs(dy)){
 					if (dx > 0){
-						rotate45r(lineElt);	
+						if (dy > 0){
+							rotate45r(lineElt);
+						} else {
+							rotate135r(lineElt);
+						}
 					} else {
-						rotate45l(lineElt);
+						if (dy > 0){
+							rotate45l(lineElt);
+						} else {
+							rotate135l(lineElt);
+						}
 					}
+
 				} else {
 					if (dx < 0){
 						rotate90l(lineElt);
@@ -188,7 +192,7 @@ Renderer.prototype = {
 			this.move(busElt, this.size);
 			bus.setPos(cur.x++, cur.y++);
 		} else {
-			debugger
+		
 		}
 	},
 

@@ -5,7 +5,7 @@ function Game(){
 	this.stepLength = 10;
 	this.resetStep();
 
-	this.renderer = new Renderer();	
+	this.renderer = new Renderer(new Ground());	
 }
 
 Game.prototype = {
@@ -19,7 +19,7 @@ Game.prototype = {
 
 		var parent = this;
 		this.id = window.setInterval(function(){
- 			parent.update();
+ 			//parent.update();
  		}, this.tickMillis);
 	},
 
