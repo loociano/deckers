@@ -47,12 +47,19 @@ Renderer.prototype = {
 		var nodes = [
 			{x: 3, y: 3}, 
 			{x: 3, y: 9}, 
-			{x: 15, y: 9},
+			{x: 0, y: 12},
+			{x: 0, y: 15},
+			{x: 9, y: 15},
+			{x: 12, y: 12},
+			{x: 6, y: 12},
+			{x: 6, y: 6},
 			{x: 9, y: 3},
+			{x: 9, y: 0},
+			{x: 3, y: 0},
 			{x: 3, y: 3}];
 		
 		var line = new Line("red", nodes);
-		//this.lines.push(line);
+		this.lines.push(line);
 	},
 
 	renderGround: function(){
@@ -159,7 +166,7 @@ Renderer.prototype = {
 
 	/** Sets the position using CSS transform */
 	setPosition: function(elt, x, y){
-		elt.style.transform = "matrix(1, 0, 0, 1, " + y * this.size + ", " + x * this.size + ")";
+		set3dPosition(elt, y*this.size, x*this.size, 0);
 	},
 
 	renderBuses: function(){
@@ -195,21 +202,25 @@ Renderer.prototype = {
 	},
 
 	updateBus: function(bus, busElt){
-		var next = bus.nextPos();
+		
 		var cur = bus.getPos();
+		var next = bus.nextPos();
+		
+		var dx = next.x - cur.x; 
+		var dy = next.y - cur.y; 
+
+		busElt.style.transformOrigin = "0px 0px";
+
+		this.rotate(dx, dy, busElt);
 
 		debugger
 
-
-
-
-
-		if (cur.x < next.x || cur.y < next.y){
+		/*if (cur.x < next.x || cur.y < next.y){
 			this.move(busElt, this.size);
 			bus.setPos(cur.x++, cur.y++);
 		} else {
 		
-		}
+		}*/
 	},
 
 	setBusPosition: function(elt, x, y){

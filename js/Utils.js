@@ -255,64 +255,64 @@ function rotateRight(elt){
 }
 
 function rotate135l(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = -isqrt2;
 	array[1] = -isqrt2;
-	array[2] = isqrt2;
-	array[3] = -isqrt2;
-	setPositionArray(elt, array);
+	array[4] = isqrt2;
+	array[5] = -isqrt2;
+	set3dPositionArray(elt, array);
 }
 
 function rotate45r(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = isqrt2;
 	array[1] = isqrt2;
-	array[2] = -isqrt2;
-	array[3] = isqrt2;
-	setPositionArray(elt, array);
+	array[4] = -isqrt2;
+	array[5] = isqrt2;
+	set3dPositionArray(elt, array);
 }
 
 function rotate45l(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = isqrt2;
 	array[1] = -isqrt2;
-	array[2] = isqrt2;
-	array[3] = isqrt2;
-	setPositionArray(elt, array);
+	array[4] = isqrt2;
+	array[5] = isqrt2;
+	set3dPositionArray(elt, array);
 }
 
 function rotate135r(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = -isqrt2;
 	array[1] = isqrt2;
-	array[2] = -isqrt2;
-	array[3] = -isqrt2;
-	setPositionArray(elt, array);
+	array[4] = -isqrt2;
+	array[5] = -isqrt2;
+	set3dPositionArray(elt, array);
 }	
 
 function rotate90r(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = 0;
 	array[1] = 1;
-	array[2] = -1;
-	array[3] = 0;
-	setPositionArray(elt, array);
+	array[4] = -1;
+	array[5] = 0;
+	set3dPositionArray(elt, array);
 }
 
 function rotate90l(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = 0;
 	array[1] = -1;
-	array[2] = 1;
-	array[3] = 0;
-	setPositionArray(elt, array);
+	array[4] = 1;
+	array[5] = 0;
+	set3dPositionArray(elt, array);
 }
 
 function rotate180(elt){
-	var array = getPosition(elt);
+	var array = get3dPosition(elt);
 	array[0] = -1;
 	array[1] = 0;
-	array[2] = 0;
-	array[3] = -1;
-	setPositionArray(elt, array);
+	array[4] = 0;
+	array[5] = -1;
+	set3dPositionArray(elt, array);
 }
