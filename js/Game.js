@@ -19,7 +19,7 @@ Game.prototype = {
 
 		var parent = this;
 		this.id = window.setInterval(function(){
- 			//parent.update();
+ 			parent.update();
  		}, this.tickMillis);
 	},
 

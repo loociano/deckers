@@ -24,15 +24,15 @@ Renderer.prototype = {
 		this.renderGround();
 		this.renderTiles();
 		this.renderLines();
-		//this.renderBuses();
+		this.renderBuses();
 	},
 
 	generateLines: function(){
 
-		var nodes = new RandomLineGenerator({x: 10, y: 10});
+		//var nodes = new RandomLineGenerator({x: 10, y: 10});
 		
-		var line = new Line("blue", nodes);
-		this.lines.push(line);
+		//var line = new Line("blue", nodes);
+		//this.lines.push(line);
 
 		var nodes = [
 			{x: 20, y: 0}, 
@@ -42,7 +42,7 @@ Renderer.prototype = {
 			{x: 20, y: 0}];
 		
 		var line = new Line("green", nodes);
-		//this.lines.push(line);
+		this.lines.push(line);
 
 		var nodes = [
 			{x: 3, y: 3}, 
@@ -108,38 +108,48 @@ Renderer.prototype = {
 				lineElt.style.transformOrigin = this.hsize + "px " + this.hsize + "px";
 				this.setPosition(lineElt, buffer.x, buffer.y);
 
-				if (Math.abs(dx) == Math.abs(dy)){
-					if (dx > 0){
-						if (dy > 0){
-							rotate45r(lineElt);
-						} else {
-							rotate135r(lineElt);
-						}
-					} else {
-						if (dy > 0){
-							rotate45l(lineElt);
-						} else {
-							rotate135l(lineElt);
-						}
-					}
+				this.rotate(dx, dy, lineElt);
 
-				} else {
-					if (dx < 0){
-						rotate90l(lineElt);
-					} else {
-						if (dy < 0){
-							rotate180(lineElt);
-						} else {
-							if (dx > dy){
-								rotate90r(lineElt);
-							}
-						}
-					}
-				}
 				this.groundElt.appendChild(lineElt);
 			}
 			// Update buffer
 			buffer = line.getPos(i);
+		}
+	},
+
+	/** 
+	 * Rotates an HTML element (elt) given difference on x axis (dx) 
+	 * and difference on y axis (dy)
+	 */
+	rotate: function(dx, dy, elt){
+		
+		if (Math.abs(dx) == Math.abs(dy)){
+			if (dx > 0){
+				if (dy > 0){
+					rotate45r(elt);
+				} else {
+					rotate135r(elt);
+				}
+			} else {
+				if (dy > 0){
+					rotate45l(elt);
+				} else {
+					rotate135l(elt);
+				}
+			}
+
+		} else {
+			if (dx < 0){
+				rotate90l(elt);
+			} else {
+				if (dy < 0){
+					rotate180(elt);
+				} else {
+					if (dx > dy){
+						rotate90r(elt);
+					}
+				}
+			}
 		}
 	},
 
@@ -187,6 +197,12 @@ Renderer.prototype = {
 	updateBus: function(bus, busElt){
 		var next = bus.nextPos();
 		var cur = bus.getPos();
+
+		debugger
+
+
+
+
 
 		if (cur.x < next.x || cur.y < next.y){
 			this.move(busElt, this.size);
