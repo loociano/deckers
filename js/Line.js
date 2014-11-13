@@ -1,5 +1,6 @@
-function Line(colour, nodes){
+function Line(colour, nodes, step){
 	this.colour = colour;
+	this.step = step;
 
 	// List of nodes, node example: {x: 0, y: 3}
 	this.nodes = [];
@@ -71,7 +72,10 @@ Line.prototype = {
 	
 	setNodes: function(nodeArray){
 		for (var i = 0; i < nodeArray.length; i++){
-			this.nodes.push(nodeArray[i]);	
+			this.nodes.push({
+				x: nodeArray[i].x * this.step,
+				y: nodeArray[i].y * this.step
+			});
 		}
 	},
 

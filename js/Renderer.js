@@ -41,7 +41,7 @@ Renderer.prototype = {
 			{x: 20, y: 30}, 
 			{x: 20, y: 0}];
 		
-		var line = new Line("green", nodes);
+		var line = new Line("green", nodes, this.size);
 		this.lines.push(line);
 
 		var nodes = [
@@ -59,7 +59,7 @@ Renderer.prototype = {
 			{x: 3, y: 3}];
 		
 		var line = new Line("red", nodes);
-		this.lines.push(line);
+		//this.lines.push(line);
 	},
 
 	renderGround: function(){
@@ -73,7 +73,7 @@ Renderer.prototype = {
 				var square = this.ground.getSquare(x, y);
 				var squareElt = document.createElement("div");
 				this.setClassNames(squareElt, square);
-				this.setPosition(squareElt, x, y);
+				this.setPosition(squareElt, x*this.size, y*this.size);
 				this.groundElt.appendChild(squareElt);
 			}
 		}
@@ -101,7 +101,7 @@ Renderer.prototype = {
 				// Skip node repetition
 				if (dx == 0 && dy == 0) continue;
 
-				var length = (Math.max(Math.abs(dx), Math.abs(dy)) + 1) * this.size;
+				var length = (Math.max(Math.abs(dx), Math.abs(dy)) + this.size);
 				
 				// Adjust length for 45deg
 				if (Math.abs(dx) == Math.abs(dy)){
@@ -166,7 +166,7 @@ Renderer.prototype = {
 
 	/** Sets the position using CSS transform */
 	setPosition: function(elt, x, y){
-		set3dPosition(elt, y*this.size, x*this.size, 0);
+		set3dPosition(elt, y, x, 0);
 	},
 
 	renderBuses: function(){
@@ -206,25 +206,38 @@ Renderer.prototype = {
 		var cur = bus.getPos();
 		var next = bus.nextPos();
 		
-		var dx = next.x - cur.x; 
-		var dy = next.y - cur.y; 
+		var dx = next.x - cur.x;
+		var dy = next.y - cur.y;
 
-		busElt.style.transformOrigin = "0px 0px";
+		busElt.style.transformOrigin = "48px 16px";
 
 		this.rotate(dx, dy, busElt);
 
-		debugger
+		var angle = getRotation(busElt);
 
-		/*if (cur.x < next.x || cur.y < next.y){
-			this.move(busElt, this.size);
-			bus.setPos(cur.x++, cur.y++);
-		} else {
-		
-		}*/
+		switch(angle){
+			case 270:
+				if (cur.x < next.x){
+					this.move(busElt, this.size);
+					bus.setPos({
+						x: cur.x + this.size, 
+						y: cur.y
+					});
+				} else {
+					debugger
+				}
+				break;
+			
+			default:
+				debugger
+		}
 	},
 
 	setBusPosition: function(elt, x, y){
-		setTop(elt, y*this.size, x*this.size, this.busHigh);
+		var posY = y - this.busHeight/2 + this.hsize;
+		var posX = x - this.hsize;
+
+		setTop(elt, posY, posX, this.busHigh);
 		setBottom(elt.children[0], "12.8", "12.8", this.busHigh);
 	},
 
@@ -254,6 +267,9 @@ Renderer.prototype = {
 			case 270:
 				this.moveY(elt, step);
 				break;
+
+			default:
+				debugger
 		}
 	},
 

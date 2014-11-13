@@ -153,21 +153,16 @@ function getRotation(elt){
 
 	if (elt != null){
 		var array = get3dPosition(elt);
-		if (array[0] == "1"){
-			return 0;
-		} else {
-			if (array[0] == "-1"){
-				return 180;
-			} else {
-				if (array[1] == "-1"){
-					return 90;
-				} else {
-					if (array[1] == "1"){
-						return 270;
-					}
-				}
-			}
-		}
+
+		if (array[0] == 1) return 0;
+		if (array[1] == -1) return 90;
+		if (array[0] == -1) return 180;
+		if (array[1] == 1) return 270;
+
+		if (array[0] == isqrt2 && array[1] == -isqrt2) return 45;
+		if (array[0] == -isqrt2 && array[1] == -isqrt2) return 135;
+		if (array[0] == -isqrt2 && array[1] == isqrt2) return 225;
+		if (array[0] == isqrt2 && array[1] == isqrt2) return 315;
 	}
 }
 
