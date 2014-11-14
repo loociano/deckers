@@ -35,11 +35,11 @@ Renderer.prototype = {
 		//this.lines.push(line);
 
 		var nodes = [
-			{x: 20, y: 0}, 
-			{x: 30, y: 0}, 
-			{x: 30, y: 30}, 
-			{x: 20, y: 30}, 
-			{x: 20, y: 0}];
+			{x: 0, y: 0}, 
+			{x: 10, y: 0}, 
+			{x: 10, y: 10}, 
+			{x: 0, y: 10}, 
+			{x: 0, y: 0}];
 		
 		var line = new Line("green", nodes, this.size);
 		this.lines.push(line);
@@ -129,6 +129,8 @@ Renderer.prototype = {
 	 * and difference on y axis (dy)
 	 */
 	rotate: function(dx, dy, elt){
+
+		if (dx == 0 && dy == 0) return;
 		
 		if (Math.abs(dx) == Math.abs(dy)){
 			if (dx > 0){
@@ -154,6 +156,8 @@ Renderer.prototype = {
 				} else {
 					if (dx > dy){
 						rotate90r(elt);
+					} else {
+						rotate0(elt);
 					}
 				}
 			}
@@ -181,6 +185,7 @@ Renderer.prototype = {
 		// Create bus
 		var busElt = document.createElement("div");
 		busElt.className = "bus";
+		busElt.style.transformOrigin = "48px 16px";
 
 		// Add shadow
 		var shadowElt = document.createElement("div");
@@ -202,34 +207,25 @@ Renderer.prototype = {
 	},
 
 	updateBus: function(bus, busElt){
-		
+
 		var cur = bus.getPos();
 		var next = bus.nextPos();
+
+		if (next == null){
+			debugger
+		}
 		
 		var dx = next.x - cur.x;
 		var dy = next.y - cur.y;
 
-		busElt.style.transformOrigin = "48px 16px";
-
+		// Rotate towards next point
 		this.rotate(dx, dy, busElt);
 
-		var angle = getRotation(busElt);
+		// Move towards next point
+		this.move(busElt, cur, this.size);
 
-		switch(angle){
-			case 270:
-				if (cur.x < next.x){
-					this.move(busElt, this.size);
-					bus.setPos({
-						x: cur.x + this.size, 
-						y: cur.y
-					});
-				} else {
-					debugger
-				}
-				break;
-			
-			default:
-				debugger
+		if (Math.abs(dx) == this.size || Math.abs(dy) == this.size){
+			bus.moveNode();
 		}
 	},
 
@@ -241,31 +237,28 @@ Renderer.prototype = {
 		setBottom(elt.children[0], "12.8", "12.8", this.busHigh);
 	},
 
-	moveX: function(elt, step){
-		addOffsetX(elt, step);
-	},
+	move: function(elt, pos, step){	
 
-	moveY: function(elt, step){
-		addOffsetY(elt, step);
-	},
-
-	move: function(elt, step){
 		var r = getRotation(elt);
 		switch(r){
 			case 0:
-				this.moveX(elt, step);
+				this.moveY(elt, step);
+				pos.y = pos.y + step;
 				break;
 
 			case 90:
-				this.moveY(elt, -step);
+				this.moveX(elt, -step);
+				pos.x = pos.x - step;
 				break;
 
 			case 180:
-				this.moveX(elt, -step);
+				this.moveY(elt, -step);
+				pos.y = pos.y - step;
 				break;
 
 			case 270:
-				this.moveY(elt, step);
+				this.moveX(elt, step);
+				pos.x = pos.x + step;
 				break;
 
 			default:
@@ -273,11 +266,11 @@ Renderer.prototype = {
 		}
 	},
 
-	turnRight: function(elt){
-		rotateRight(elt);
+	moveY: function(elt, step){
+		addOffsetX(elt, step);
 	},
 
-	turnLeft: function(elt){
-		rotateLeft(elt);
+	moveX: function(elt, step){
+		addOffsetY(elt, step);
 	}
 };

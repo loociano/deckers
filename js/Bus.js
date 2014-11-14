@@ -1,6 +1,12 @@
 function Bus(line){
 	this.line = line;
-	this.pos = this.line.firstNode();
+	var firstNode = this.line.firstNode();
+	
+	// Copy first node into bus' current position
+	this.pos = {
+		x: firstNode.x,
+		y: firstNode.y
+	};
 }
 
 Bus.prototype = {
@@ -15,5 +21,9 @@ Bus.prototype = {
 
 	setPos: function(pos){
 		this.pos = pos;
+	},
+
+	moveNode: function(){
+		this.line.moveNode();
 	}
 }

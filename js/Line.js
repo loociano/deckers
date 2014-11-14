@@ -46,27 +46,20 @@ Line.prototype = {
 
 	moveNode: function(){
 		this.current++;
-		if (this.current == this.length()){
+		if (this.current + 2 == this.length()){
 			if (this.isCircular()){
-				this.current = 0;
-			} else {
-				this.current = null;
-			}	
+				this.current = -1;
+			}
 		}
 	},
 
 	nextNode: function(){
 		var nextIndex = this.current + 1;
 		if (nextIndex < this.length()){
-			if (nextIndex == this.length() - 1){
-				if (this.isCircular()){
-					return this.nodes[1];
-				} else {
-					return null;
-				}
-			} else {
-				return this.nodes[nextIndex];
-			}
+			return this.nodes[nextIndex];
+		} else {
+			debugger
+			return null;
 		}
 	},
 	

@@ -311,3 +311,12 @@ function rotate180(elt){
 	array[5] = -1;
 	set3dPositionArray(elt, array);
 }
+
+function rotate0(elt){
+	var array = get3dPosition(elt);
+	array[0] = 1;
+	array[1] = 0;
+	array[4] = 0;
+	array[5] = 1;
+	set3dPositionArray(elt, array);
+}
