@@ -193,7 +193,11 @@ Renderer.prototype = {
 		busElt.appendChild(shadowElt);
 
 		var pos = bus.getPos();
+
 		this.setBusPosition(busElt, pos.x, pos.y);
+		
+		var diff = bus.getDxDy();
+		this.rotate(diff.x, diff.y, busElt);
 
 		this.groundElt.appendChild(busElt);
 		this.busElts.push(busElt);
@@ -209,23 +213,19 @@ Renderer.prototype = {
 	updateBus: function(bus, busElt){
 
 		var cur = bus.getPos();
-		var next = bus.nextPos();
+		var diff = bus.getDxDy();
 
-		if (next == null){
+		if (diff == null){
 			debugger
 		}
-		
-		var dx = next.x - cur.x;
-		var dy = next.y - cur.y;
-
-		// Rotate towards next point
-		this.rotate(dx, dy, busElt);
 
 		// Move towards next point
 		this.move(busElt, cur, this.size);
 
-		if (Math.abs(dx) == this.size || Math.abs(dy) == this.size){
+		if (Math.abs(diff.x) == this.size || Math.abs(diff.y) == this.size){
 			bus.moveNode();
+			diff = bus.getDxDy();
+			this.rotate(diff.x, diff.y, busElt);
 		}
 	},
 

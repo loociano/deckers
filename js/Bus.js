@@ -25,5 +25,17 @@ Bus.prototype = {
 
 	moveNode: function(){
 		this.line.moveNode();
+	},
+
+	getDxDy: function(){
+		var next = this.nextPos();
+		if (next != null){
+			return {
+				x: next.x - this.pos.x,
+				y: next.y - this.pos.y 
+			};	
+		} else {
+			return null;	
+		}
 	}
 }
