@@ -1,8 +1,8 @@
 /**
  * Constants
  */
-var sqrt2 = Math.sqrt(2);
-var isqrt2 = 1/sqrt2;
+var sqrt2 = 1.4142135623;
+var isqrt2 = 0.7071067811;
 
 /**
  * Returns a random integer between min (inclusive) and max (inclusive)
@@ -91,6 +91,21 @@ function addOffsetY(elt, offset) {
 	elt.style.transform = arrayToMatrix3d(array);
 };
 
+/** Sets the CSS transform vertical and horizontal position for an HTML Element */
+function addOffsetXY(elt, offsetX, offsetY) {
+
+	var array = matrix3dToArray(elt.style.transform);
+	var x = parseFloat(array[12]);
+	x += offsetX;
+	array[12] = x.toString();
+
+	var y = parseFloat(array[13]);
+	y += offsetY;
+	array[13] = y.toString();
+
+	elt.style.transform = arrayToMatrix3d(array);
+};
+
 /** Sets the CSS transform 3d position for an HTML Element */
 function set3dPosition(elt, x, y, z) {
 	var array = get3dPosition(elt);
@@ -159,93 +174,13 @@ function getRotation(elt){
 		if (array[0] == -1) return 180;
 		if (array[1] == 1) return 270;
 
-		if (array[0] == isqrt2 && array[1] == -isqrt2) return 45;
-		if (array[0] == -isqrt2 && array[1] == -isqrt2) return 135;
-		if (array[0] == -isqrt2 && array[1] == isqrt2) return 225;
-		if (array[0] == isqrt2 && array[1] == isqrt2) return 315;
-	}
-}
+		var array0 = parseFloat(array[0]);
+		var array1 = parseFloat(array[1]);
 
-function rotateLeft(elt){
-
-	var array = get3dPosition(elt);
-	if (array[0] == "1"){
-		// Bus is in 0 deg. Rotate to 90 deg
-		array[0] = "0";
-		array[1] = "-1";
-		array[4] = "1";
-		array[5] = "0";
-	} else {
-		if (array[0] == "-1"){
-			// Bus is in 180. Rotate to 270 deg.
-			array[0] = "0";
-			array[1] = "1";
-			array[4] = "-1";
-			array[5] = "0";
-		} else {
-			if (array[1] == "-1"){
-				// Bus is in 90. Rotate to 180 deg.
-				array[0] = "-1";
-				array[1] = "0";
-				array[4] = "0";
-				array[5] = "-1";
-			} else {
-				if (array[1] == "1"){
-					// Bus is in 270. Rotate to 360 deg.
-					array[0] = "1";
-					array[1] = "0";
-					array[4] = "0";
-					array[5] = "1";
-				} else {
-					console.error("Wrong bus position");
-					debugger
-				}
-			}
-		}
-	}
-	set3dPositionArray(elt, array);
-}
-
-function rotateRight(elt){
-
-	if (elt != null){
-
-		var array = get3dPosition(elt);
-		if (array[0] == "1"){
-			// Bus is in 0 deg. Rotate to 270 deg
-			array[0] = "0";
-			array[1] = "1";
-			array[4] = "-1";
-			array[5] = "0";
-		} else {
-			if (array[0] == "-1"){
-				// Bus is in 180. Rotate to 90 deg.
-				array[0] = "0";
-				array[1] = "-1";
-				array[4] = "1";
-				array[5] = "0";
-			} else {
-				if (array[1] == "-1"){
-					// Bus is in 90. Rotate to 360 deg.
-					array[0] = "1";
-					array[1] = "0";
-					array[4] = "0";
-					array[5] = "1";
-				} else {
-					if (array[1] == "1"){
-						// Bus is in 270. Rotate to 180 deg.
-						array[0] = "-1";
-						array[1] = "0";
-						array[4] = "0";
-						array[5] = "-1";
-					} else {
-						console.error("Wrong bus position");
-						debugger
-					}
-				}
-			}
-		}
-		set3dPositionArray(elt, array);
+		if (array0 == isqrt2 && array1 == -isqrt2) return 45;
+		if (array0 == -isqrt2 && array1 == -isqrt2) return 135;
+		if (array0 == -isqrt2 && array1 == isqrt2) return 225;
+		if (array0 == isqrt2 && array1 == isqrt2) return 315;
 	}
 }
 

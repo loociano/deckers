@@ -7,6 +7,7 @@ function Renderer(ground){
 	this.busHeight = "96";
 	this.step = 10;
 
+	// Square size
 	this.size = 16;
 	this.hsize = this.size / 2;
 
@@ -41,8 +42,8 @@ Renderer.prototype = {
 			{x: 0, y: 10}, 
 			{x: 0, y: 0}];
 		
-		var line = new Line("green", nodes, this.size);
-		this.lines.push(line);
+		//var line = new Line("green", nodes, this.size);
+		//this.lines.push(line);
 
 		var nodes = [
 			{x: 3, y: 3}, 
@@ -58,8 +59,8 @@ Renderer.prototype = {
 			{x: 3, y: 0},
 			{x: 3, y: 3}];
 		
-		var line = new Line("red", nodes);
-		//this.lines.push(line);
+		var line = new Line("red", nodes, this.size);
+		this.lines.push(line);
 	},
 
 	renderGround: function(){
@@ -196,6 +197,7 @@ Renderer.prototype = {
 
 		this.setBusPosition(busElt, pos.x, pos.y);
 		
+		// Set bus rotation
 		var diff = bus.getDxDy();
 		this.rotate(diff.x, diff.y, busElt);
 
@@ -214,19 +216,19 @@ Renderer.prototype = {
 
 		var cur = bus.getPos();
 		var diff = bus.getDxDy();
-
-		if (diff == null){
-			debugger
-		}
-
+		
 		// Move towards next point
 		this.move(busElt, cur, this.size);
 
 		if (Math.abs(diff.x) == this.size || Math.abs(diff.y) == this.size){
-			bus.moveNode();
-			diff = bus.getDxDy();
-			this.rotate(diff.x, diff.y, busElt);
+			this.rotateBus(bus, busElt);
 		}
+	},
+
+	rotateBus: function(bus, busElt){
+		bus.moveNode();
+		diff = bus.getDxDy();
+		this.rotate(diff.x, diff.y, busElt);
 	},
 
 	setBusPosition: function(elt, x, y){
@@ -241,8 +243,15 @@ Renderer.prototype = {
 
 		var r = getRotation(elt);
 		switch(r){
+
 			case 0:
 				this.moveY(elt, step);
+				pos.y = pos.y + step;
+				break;
+
+			case 45:
+				this.moveXY(elt, -step, step);
+				pos.x = pos.x - step;
 				pos.y = pos.y + step;
 				break;
 
@@ -251,8 +260,20 @@ Renderer.prototype = {
 				pos.x = pos.x - step;
 				break;
 
+			case 135:
+				this.moveXY(elt, -step, -step);
+				pos.x = pos.x - step;
+				pos.y = pos.y - step;
+				break;
+
 			case 180:
 				this.moveY(elt, -step);
+				pos.y = pos.y - step;
+				break;
+
+			case 225:
+				this.moveXY(elt, step, -step);
+				pos.x = pos.x + step;
 				pos.y = pos.y - step;
 				break;
 
@@ -261,16 +282,23 @@ Renderer.prototype = {
 				pos.x = pos.x + step;
 				break;
 
-			default:
-				debugger
+			case 315:
+				this.moveXY(elt, step, step);
+				pos.x = pos.x + step;
+				pos.y = pos.y + step;
+				break;
 		}
+	},
+
+	moveX: function(elt, step){
+		addOffsetY(elt, step);
 	},
 
 	moveY: function(elt, step){
 		addOffsetX(elt, step);
 	},
 
-	moveX: function(elt, step){
-		addOffsetY(elt, step);
+	moveXY: function(elt, stepX, stepY){
+		addOffsetXY(elt, stepY, stepX);
 	}
 };

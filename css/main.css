@@ -12,7 +12,7 @@ body {
     position: absolute;
     top: 50%;
     -webkit-transform: rotateX(45deg) rotateZ(45deg);
-    -webkit-transform-style: preserve-3d;
+    -webkit-transform-style: preserve-3d;ç
 }
 
 .square {

@@ -1,7 +1,7 @@
 function Game(){
 	this.id = null;
 
-	this.tickMillis = 500;
+	this.tickMillis = 1000;
 	this.stepLength = 10;
 	this.resetStep();
 
