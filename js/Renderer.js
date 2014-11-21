@@ -30,11 +30,15 @@ Renderer.prototype = {
 
 	generateLines: function(){
 
-		//var nodes = new RandomLineGenerator({x: 10, y: 10});
+		/*
+		// Random line
+		var nodes = new RandomLineGenerator({x: 10, y: 10});
 		
-		//var line = new Line("blue", nodes);
-		//this.lines.push(line);
+		var line = new Line("blue", nodes, this.size);
+		this.lines.push(line);*/
 
+		/* 
+		//Square line
 		var nodes = [
 			{x: 0, y: 0}, 
 			{x: 10, y: 0}, 
@@ -42,8 +46,8 @@ Renderer.prototype = {
 			{x: 0, y: 10}, 
 			{x: 0, y: 0}];
 		
-		//var line = new Line("green", nodes, this.size);
-		//this.lines.push(line);
+		var line = new Line("green", nodes, this.size);
+		this.lines.push(line);*/
 
 		var nodes = [
 			{x: 3, y: 3}, 
