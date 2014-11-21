@@ -184,6 +184,14 @@ function getRotation(elt){
 	}
 }
 
+function rotate(elt, degX, degY, degZ){
+	try {
+		elt.style.transform = "rotateX("+ degX + "deg) rotateY("+ degY + "deg) rotateZ(" + degZ + "deg)";
+	} catch(e){
+		console.error("Elt not found");
+	}
+}
+
 function rotate135l(elt){
 	var array = get3dPosition(elt);
 	array[0] = -isqrt2;

@@ -16,6 +16,8 @@ function Renderer(ground){
 
 	this.lines = [];
 	this.busElts = [];
+
+	this.groundZRot = 45;
 }
 
 Renderer.prototype = {
@@ -23,9 +25,13 @@ Renderer.prototype = {
 	render: function(){
 		this.generateLines();
 		this.renderGround();
-		this.renderTiles();
+		//this.renderTiles();
 		this.renderLines();
 		this.renderBuses();
+	},
+
+	update: function(){
+		this.updateBuses();
 	},
 
 	generateLines: function(){
@@ -69,7 +75,15 @@ Renderer.prototype = {
 
 	renderGround: function(){
 		this.groundElt.className = "ground";
+		rotate(this.groundElt, 45, 0, this.groundZRot);
 		this.body.appendChild(this.groundElt);
+	},
+
+	updateGround: function(deg){
+		// FIXME: handle one full turn to avoid rotation number overflow
+		// this.groundZRot == 360 ? this.groundZRot = 45 : this.groundZRot += deg;
+		this.groundZRot += deg;
+		rotate(this.groundElt, 45, 0, this.groundZRot);
 	},
 
 	renderTiles: function(){

@@ -1,8 +1,11 @@
 function Game(){
 	this.id = null;
 
-	this.tickMillis = 1000;
-	this.stepLength = 10;
+	this.tick = 1000; // Milliseconds
+	this.tickRotate = 1000; // Milliseconds
+	
+	this.stepLength = 10; // Pixels
+	this.rotateStep = 1; // Degrees
 	this.resetStep();
 
 	this.renderer = new Renderer(new Ground());	
@@ -19,11 +22,11 @@ Game.prototype = {
 
 		var parent = this;
 		this.id = window.setInterval(function(){
- 			parent.update();
- 		}, this.tickMillis);
-	},
+ 			parent.renderer.update();
+ 		}, this.tick);
 
-	update: function(){
-		this.renderer.updateBuses();
+		this.id = window.setInterval(function(){
+ 			parent.renderer.updateGround(parent.rotateStep);
+ 		}, this.tickRotate);
 	}
 }
