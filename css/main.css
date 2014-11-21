@@ -11,8 +11,9 @@ body {
     margin-left: -160px; /* half the width */
     position: absolute;
     top: 50%;
-    -webkit-transform: rotateX(45deg) rotateZ(45deg);
-    -webkit-transform-style: preserve-3d;ç
+    -webkit-transform-style: preserve-3d;
+    -webkit-transition: 1s linear;
+            transition: 1s linear;
 }
 
 .square {
